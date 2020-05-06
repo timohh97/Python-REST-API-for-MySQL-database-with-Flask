@@ -25,6 +25,14 @@ def getDataById(urlId):
     cursor.execute("select * from user where id='"+Id+"'")
     return jsonify(cursor.fetchall())
 
+@server.route("/delete/<urlId>")
+def deleteDataById(urlId):
+    Id = urlId
+    cursor.execute("delete from user where id='"+Id+"'")
+    database.commit()
+    cursor.execute("select * from user")
+    return jsonify(cursor.fetchall())
+
 @server.route("/post",methods=["GET","POST"])
 def postData():
 
