@@ -33,6 +33,17 @@ def deleteDataById(urlId):
     cursor.execute("select * from user")
     return jsonify(cursor.fetchall())
 
+@server.route("/patch/<urlId>",methods=["PATCH"])
+def updateDataById(urlId):
+    json = request.json
+    password= json["password"]
+    Id = urlId
+    cursor.execute("update user set password='"+password+"' where id='"+Id+"'")
+    database.commit()
+    cursor.execute("select * from user where id='"+Id+"'")
+    return jsonify(cursor.fetchall())
+
+
 @server.route("/post",methods=["GET","POST"])
 def postData():
 
